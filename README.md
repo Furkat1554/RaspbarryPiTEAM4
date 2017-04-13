@@ -1,4 +1,4 @@
-# RaspbarryPiTEAM4 members
+# RaspbarryTV team members
 Nuraly Kaparov
 Furkat Karaev
 Alibek Botbaev
