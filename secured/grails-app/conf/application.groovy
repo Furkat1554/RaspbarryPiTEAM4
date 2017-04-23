@@ -14,10 +14,8 @@ grails {
 			}
 
 			controllerAnnotations.staticRules = [
-				[pattern: '/**',             access: 'ROLE_ADMIN'],
 				[pattern: '/error',          access: 'permitAll'],
 				[pattern: '/index',          access: 'permitAll'],
-				[pattern: '/overview.gsp',   access: 'permitAll'],
 				[pattern: '/shutdown',       access: 'permitAll'],
 				[pattern: '/assets/**',      access: 'permitAll'],
 				[pattern: '/**/js/**',       access: 'permitAll'],
@@ -25,6 +23,8 @@ grails {
 				[pattern: '/**/images/**',   access: 'permitAll'],
 				[pattern: '/**/favicon.ico', access: 'permitAll'],
 
+				[pattern: '/**',              access: 'ROLE_ADMIN'],
+				[pattern: '/configure',       access: 'ROLE_ADMIN'],
 				[pattern: '/dbconsole/**',    access: 'ROLE_ADMIN'],
 				[pattern: '/securityinfo',    access: 'ROLE_ADMIN'],
 				[pattern: '/securityinfo/**', access: 'ROLE_ADMIN']

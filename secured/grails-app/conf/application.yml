@@ -1,5 +1,10 @@
 ---
 grails:
+    guides:
+        cdnFolder: /home/ali/Downloads/uploads
+        cdnRootUrl: http://localhost:8888
+---
+grails:
    profile: web
    codegen:
       defaultPackage: secured
@@ -55,6 +60,9 @@ grails:
          maxsize: 1000
    controllers:
       defaultScope: singleton
+      upload:
+        maxFileSize: 26214400
+        maxRequestSize: 26214400
    converters:
       encoding: UTF-8
    views:
