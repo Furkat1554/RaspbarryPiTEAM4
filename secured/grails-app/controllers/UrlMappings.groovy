@@ -4,7 +4,7 @@ class UrlMappings {
 		"/$controller/$action?/$id?(.$format)?"{}
 
 		"/"(view:   '/overview')
-		"/post"(view:'/post')
+		"/announcement"(view:'/announcement')
 		"/control"(view: '/control')
 		"/event" (view: '/event')
 		"/configure" (view: '/configure')
