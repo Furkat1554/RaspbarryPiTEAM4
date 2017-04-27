@@ -23,7 +23,7 @@ grails {
 				[pattern: '/**/images/**',   access: 'permitAll'],
 				[pattern: '/**/favicon.ico', access: 'permitAll'],
 
-				[pattern: '/**',              access: 'ROLE_ADMIN'],
+				[pattern: '/**',              access: 'ROLE_USER'],
 				[pattern: '/configure',       access: 'ROLE_ADMIN'],
 				[pattern: '/dbconsole/**',    access: 'ROLE_ADMIN'],
 				[pattern: '/securityinfo',    access: 'ROLE_ADMIN'],
