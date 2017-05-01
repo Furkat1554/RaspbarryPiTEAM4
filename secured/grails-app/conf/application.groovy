@@ -4,7 +4,8 @@ grails {
 			authority.className = 'test.Role'
 			cacheUsers = true
 			gsp {
-				layoutAuth = layoutDenied = 'application'
+				layoutAuth = 'application'
+				layoutDenied = 'template'
 			}
 			logout.postOnly = false
 			roleHierarchy = 'ROLE_ADMIN > ROLE_USER'

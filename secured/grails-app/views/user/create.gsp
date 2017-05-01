@@ -1,3 +1,4 @@
+<%@ page import="test.UserRole" %>
 <!DOCTYPE html>
 <html>
     <head>

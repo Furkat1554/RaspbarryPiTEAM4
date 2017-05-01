@@ -19,11 +19,7 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <h1><f:display bean="announcement" property="name" /></h1>
-            <h1><f:display bean="announcement" property="description" /></h1>
-            <g:if test="${this.announcement.mediaFileUrl}">
-                <h1>${this.announcement.mediaFileUrl}</h1>
-            </g:if>
+            <f:display bean="announcement"/>
             <g:form resource="${this.announcement}" method="DELETE">
                 <fieldset class="buttons">
                     <g:if test="${this.announcement.mediaFileUrl == null}">

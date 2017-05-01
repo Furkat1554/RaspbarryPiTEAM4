@@ -3,6 +3,7 @@ package test
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
+
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
 class User implements Serializable {
@@ -13,6 +14,7 @@ class User implements Serializable {
 
 	String username
 	String password
+	String role
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
@@ -39,8 +41,9 @@ class User implements Serializable {
 	static transients = ['springSecurityService']
 
 	static constraints = {
-		password blank: false, password: true
+		password blank: false, password: true, minSize : 5
 		username blank: false, unique: true
+		role inList: ['ROLE_USER','ROLE_ADMIN'], blank: false
 	}
 
 	static mapping = {

@@ -37,7 +37,9 @@ class UserController {
             return
         }
 
+        def roleUser = Role.findByAuthority(user.role)
         user.save flush:true
+        UserRole.create user, roleUser
 
         request.withFormat {
             form multipartForm {
@@ -86,6 +88,7 @@ class UserController {
             return
         }
 
+        UserRole.removeAll(user)
         user.delete flush:true
 
         request.withFormat {
