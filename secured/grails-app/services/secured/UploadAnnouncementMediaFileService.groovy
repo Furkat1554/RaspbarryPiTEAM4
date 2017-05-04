@@ -10,6 +10,7 @@ class UploadAnnouncementMediaFileService implements GrailsConfigurationAware {
     String cdnRootUrl
 
     def announcementGormService
+    def uploadToRaspberryService
 
     @Override
     void setConfiguration(Config co) {
@@ -27,14 +28,18 @@ class UploadAnnouncementMediaFileService implements GrailsConfigurationAware {
         def path = "${folderPath}/${filename}" as String
         cmd.mediaFile.transferTo(new File(path))
 
+        //share media file to raspberries
+        InputStream inputStream = new BufferedInputStream(new FileInputStream(filename))
+        def ftpStatus = uploadToRaspberryService.upload(filename,inputStream)
+
+
+        //add madiaFileUrl to database
         String mediaFileUrl = "${cdnRootUrl}//announcement/${cmd.id}/${filename}"
-
-        def poi = announcementGormService.updateMediaFileUrl(cmd.id, mediaFileUrl)
-
-        if ( !poi || poi.hasErrors() ) {
+        def announ = announcementGormService.updateMediaFileUrl(cmd.id, mediaFileUrl)
+        if ( !announ || announ.hasErrors() ) {
             def f = new File(path)
             f.delete()
         }
-        poi
+        announ
     }
 }

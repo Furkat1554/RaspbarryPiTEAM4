@@ -24,15 +24,15 @@ class AnnouncementController {
 
     // tag::editMediaFile[]
     @Transactional(readOnly = true)
-    def editMediaFile(Announcement pointOfInterest) {
-        respond pointOfInterest
+    def editMediaFile(Announcement announcement) {
+        respond announcement
     }
     // end::editMediaFile[]
 
     // tag::show[]
     @Transactional(readOnly = true)
-    def show(Announcement pointOfInterest) {
-        respond pointOfInterest
+    def show(Announcement announcement) {
+        respond announcement
     }
     // end::show[]
 
@@ -51,23 +51,23 @@ class AnnouncementController {
             return
         }
 
-        def pointOfInterest = uploadAnnouncementMediaFileService.uploadMediaFile(cmd)
-        if (pointOfInterest == null) {
+        def announcement = uploadAnnouncementMediaFileService.uploadMediaFile(cmd)
+        if (announcement == null) {
             notFound()
             return
         }
 
-        if (pointOfInterest.hasErrors()) {
-            respond(pointOfInterest, model: [pointOfInterest: pointOfInterest], view: 'editMediaFile')
+        if (announcement.hasErrors()) {
+            respond(announcement, model: [pointOfInterest: announcement], view: 'editMediaFile')
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'announcement.label', default: 'Point of Interest'), pointOfInterest.id])
-                redirect pointOfInterest
+                flash.message = message(code: 'default.uploaded.message', args: [message(code: 'announcement.label', default: 'Annoucement'), announcement.id])
+                redirect announcement
             }
-            '*'{ respond pointOfInterest, [status: OK] }
+            '*'{ respond announcement, [status: OK] }
         }
     }
     // end::uploadMediaFile[]
@@ -84,24 +84,24 @@ class AnnouncementController {
             return
         }
 
-        def pointOfInterest = AnnouncementGormService.save(cmd)
+        def announcement = AnnouncementGormService.save(cmd)
 
-        if (pointOfInterest == null) {
+        if (announcement == null) {
             notFound()
             return
         }
 
-        if (pointOfInterest.hasErrors()) {
-            respond pointOfInterest.errors, model: [pointOfInterest: pointOfInterest], view: 'create'
+        if (announcement.hasErrors()) {
+            respond announcement.errors, model: [pointOfInterest: announcement], view: 'create'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'announcement.label', default: 'Announcement'), pointOfInterest.id])
-                redirect pointOfInterest
+                flash.message = message(code: 'default.created.message', args: [message(code: 'announcement.label', default: 'Announcement'), announcement.id])
+                redirect announcement
             }
-            '*' { respond pointOfInterest, [status: CREATED] }
+            '*' { respond announcement, [status: CREATED] }
         }
     }
     // end::save[]

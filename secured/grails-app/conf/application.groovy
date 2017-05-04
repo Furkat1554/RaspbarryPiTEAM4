@@ -46,5 +46,12 @@ grails {
 				[pattern: '/testany/**',      access: 'ANY_CHANNEL']
 			]
 		}
+
+		ftp {
+			host = ''
+			username = 'myuser'
+			password = '*****'
+			uploadDir = 'Uploads'
+		}
 	}
 }

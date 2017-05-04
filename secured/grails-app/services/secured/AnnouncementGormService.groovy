@@ -12,12 +12,12 @@ class AnnouncementGormService {
     // tag::updateMediaFileUrl[]
     @Transactional
     Announcement updateMediaFileUrl(Long announcementId, String mediaFileUrl) {
-        Announcement poi = Announcement.get(announcementId)
-        if ( !poi ) {
+        Announcement announcement = Announcement.get(announcementId)
+        if ( !announcement ) {
             return null
         }
-        poi.mediaFileUrl = mediaFileUrl
-        poi.save()
+        announcement.mediaFileUrl = mediaFileUrl
+        announcement.save()
     }
     // end::updateMediaFileUrl[]
 
