@@ -2,6 +2,7 @@ package secured
 
 import grails.config.Config
 import grails.core.support.GrailsConfigurationAware
+import org.h2.store.FileStoreInputStream
 import secured.Announcement
 
 class UploadAnnouncementMediaFileService implements GrailsConfigurationAware {
@@ -29,9 +30,13 @@ class UploadAnnouncementMediaFileService implements GrailsConfigurationAware {
         cmd.mediaFile.transferTo(new File(path))
 
         //share media file to raspberries
-        InputStream inputStream = new BufferedInputStream(new FileInputStream(filename))
-        def ftpStatus = uploadToRaspberryService.upload(filename,inputStream)
+        File file = new File(path)
+        InputStream inputStream = new BufferedInputStream(new FileInputStream(file))
+        def ftpStatus = uploadToRaspberryService.upload(path,inputStream)
 
+        if(ftpStatus != null){
+            System.out.print("Success")
+        }
 
         //add madiaFileUrl to database
         String mediaFileUrl = "${cdnRootUrl}//announcement/${cmd.id}/${filename}"

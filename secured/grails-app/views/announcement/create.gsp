@@ -28,7 +28,7 @@
             </g:hasErrors>
             <g:uploadForm action="save">
                 <fieldset class="form">
-                    <f:all bean="announcement" except="mediaFileUrl"/>
+                    <f:all bean="announcement" except="mediaFileUrl, postedDate"/>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

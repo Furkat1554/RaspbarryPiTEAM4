@@ -32,9 +32,6 @@
                 <div id="main">
                     <div id="sidebar">
                         <h1>Sidebar</h1>
-                        <ul>
-                            <li><li><g:link controller="logout">My profile</g:link></li></li>
-                        </ul>
                     </div>
                     <div id="content">
                         <g:layoutBody/>
