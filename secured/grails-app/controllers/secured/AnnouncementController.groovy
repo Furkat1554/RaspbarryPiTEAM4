@@ -1,5 +1,7 @@
 package secured
 
+import test.User
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -10,8 +12,8 @@ class AnnouncementController {
                              uploadMediaFile : 'POST',
                              delete       : "DELETE"]
 
+    def springSecurityService
     def uploadAnnouncementMediaFileService
-
     def AnnouncementGormService
 
     // tag::index[]
@@ -74,6 +76,11 @@ class AnnouncementController {
 
     // tag::save[]
     def save(NameCommand cmd) {
+
+        if (isLoggedIn()) {
+            cmd.author = springSecurityService.authentication.principal.username
+        }
+
         if (cmd == null) {
             notFound()
             return

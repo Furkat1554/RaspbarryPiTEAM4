@@ -1,17 +1,18 @@
 package secured
 
 import grails.validation.Validateable
-import java.time.LocalDateTime
 
 class NameCommand implements Validateable {
-    String name
+    String title
     String description
+    String author
     Date postedDate = new Date()
     Date endDate
 
     static constraints = {
-        name nullable: false, blank: false
+        title nullable: false, blank: false
         description nullable: true, blank: false
+        author nullable: true
         endDate min: new Date()
     }
 }

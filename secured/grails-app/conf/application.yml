@@ -13,7 +13,7 @@ grails:
          proxies: false
 info:
    app:
-      name: '@info.app.name@'
+      name: '@info.app.title@'
       version: '@info.app.version@'
       grailsVersion: '@info.app.grailsVersion@'
 spring:

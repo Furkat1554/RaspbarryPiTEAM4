@@ -1,22 +1,24 @@
 package secured
 
-import java.time.LocalDateTime
 
 class Announcement {
 
-    String name
+
+    String title
     String description
-    String mediaFileUrl
+    String author
     Date postedDate = new Date()
     Date endDate
+    String mediaFileUrl
 
 
     static constraints = {
-        name maxSize: 20, nullable: false
+        title maxSize: 20, nullable: false
         description widget: 'textarea', maxSize: 120
-        mediaFileUrl nullable:true
+        author nullable: true
         postedDate()
         endDate min: new Date()
+        mediaFileUrl nullable:true
     }
 
 }

@@ -11,7 +11,7 @@ class UserControllerSpec extends Specification {
         assert params != null
 
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        //params["title"] = 'someValidName'
         assert false, "TODO: Provide a populateValidParams() implementation for this generated test suite"
     }
 
