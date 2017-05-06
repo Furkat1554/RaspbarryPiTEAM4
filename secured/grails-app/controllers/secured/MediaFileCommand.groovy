@@ -17,7 +17,7 @@ class MediaFileCommand implements Validateable {
                 return false
             }
 
-            ['jpeg', 'jpg', 'png','mp3'].any { extension -> // <1>
+            ['jpeg', 'jpg', 'png','mp3', 'mp4'].any { extension -> // <1>
                  val.originalFilename?.toLowerCase()?.endsWith(extension)
             }
         }
