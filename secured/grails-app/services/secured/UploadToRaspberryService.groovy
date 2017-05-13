@@ -13,11 +13,11 @@ class UploadToRaspberryService {
     String upload(String fileName, InputStream inputStream) {
         String status
         ftpClient.with {
-            connect grailsApplication.config.getProperty('ftp.host')
-            login grailsApplication.config.getProperty('ftp.username'), grailsApplication.config.getProperty('ftp.password')
+            connect '192.168.21.254'
+            login 'alibek', '1'
             enterLocalPassiveMode()
             setFileType(BINARY_FILE_TYPE)
-            changeWorkingDirectory grailsApplication.config.getProperty('ftp.uploadDir')
+            changeWorkingDirectory '/home/alibek/Downloads'
             storeFile(fileName, inputStream)
             status = replyString
             disconnect()

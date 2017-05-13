@@ -47,11 +47,14 @@ grails {
 			]
 		}
 
-		ftp {
-			host = ''
-			username = 'myuser'
-			password = '*****'
-			uploadDir = 'Uploads'
-		}
+	}
+
+	ftp {
+	host = '192.168.21.254'
+	username = 'alibek'
+	password = '1'
+	uploadDir = '/home/alibek/ftp/files'
+	
 	}
 }
+
