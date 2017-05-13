@@ -9,5 +9,6 @@ class Raspberry {
 
 
     static constraints = {
+
     }
 }

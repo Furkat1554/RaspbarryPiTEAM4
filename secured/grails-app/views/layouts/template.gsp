@@ -22,7 +22,7 @@
                         <ul>
                             <li><a href="${createLink(uri:'/')}">Overview</a></li>
                             <li><a href="${createLink(controller: 'secured.announcement')}">Post Announcement</a></li>
-                            <li><a href="${createLink(uri:'/control')}" class="controlpi">Control Pis</a></li>
+                            <li><a href="${createLink(controller: 'secured.raspberry')}">Control Pies</a></li>
                             <li><a href="${createLink(uri:'/event')}" class="event">Event Log</a></li>
                             <li><a href="${createLink(uri:'/configure')}" class="configure">App Configuration</a></li>
                             <li><g:link controller="logout">Logout</g:link></li>
