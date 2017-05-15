@@ -20,7 +20,7 @@ class AnnouncementController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         def (l, total) = AnnouncementGormService.list(params)
-        respond l, model:[pointOfInterestCount: total]
+        respond l, model:[announcementCount: total]
     }
     // end::index[]
 
@@ -49,7 +49,7 @@ class AnnouncementController {
     def uploadMediaFile(MediaFileCommand cmd) {
 
         if (cmd.hasErrors()) {
-            respond(cmd, model: [pointOfInterest: cmd], view: 'editMediaFile')
+            respond(cmd, model: [announcement: cmd], view: 'editMediaFile')
             return
         }
 
@@ -60,7 +60,7 @@ class AnnouncementController {
         }
 
         if (announcement.hasErrors()) {
-            respond(announcement, model: [pointOfInterest: announcement], view: 'editMediaFile')
+            respond(announcement, model: [announcement: announcement], view: 'editMediaFile')
             return
         }
 
@@ -87,7 +87,12 @@ class AnnouncementController {
         }
 
         if (cmd.hasErrors()) {
-            respond cmd.errors, model: [pointOfInterest: cmd], view: 'create'
+            respond cmd.errors, model: [announcement: cmd], view: 'create'
+            return
+        }
+
+        if (cmd.endDate < cmd.postedDate) {
+            notAccepted()
             return
         }
 
@@ -99,7 +104,7 @@ class AnnouncementController {
         }
 
         if (announcement.hasErrors()) {
-            respond announcement.errors, model: [pointOfInterest: announcement], view: 'create'
+            respond announcement.errors, model: [announcement: announcement], view: 'create'
             return
         }
 
@@ -140,6 +145,16 @@ class AnnouncementController {
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
+        }
+    }
+
+    protected void notAccepted() {
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'custom.invalid.endDate.message', args: [message(code: 'announcement.label', default: 'Announcement'), params.id])
+                redirect action: "create", method: "GET"
+            }
+            '*'{ render status: NOT_ACCEPTABLE }
         }
     }
 }

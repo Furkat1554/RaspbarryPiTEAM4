@@ -13,6 +13,6 @@ class NameCommand implements Validateable {
         title nullable: false, blank: false
         description nullable: true, blank: false
         author nullable: true
-        endDate min: new Date()
+        endDate()
     }
 }

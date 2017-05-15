@@ -7,7 +7,6 @@ class Raspberry {
     int floor;
     String department;
 
-
     static constraints = {
 
     }

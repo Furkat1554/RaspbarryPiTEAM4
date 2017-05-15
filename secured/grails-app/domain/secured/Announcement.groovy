@@ -3,7 +3,6 @@ package secured
 
 class Announcement {
 
-
     String title
     String description
     String author
@@ -17,7 +16,7 @@ class Announcement {
         description widget: 'textarea', maxSize: 120
         author nullable: true
         postedDate()
-        endDate min: new Date()
+        endDate()
         mediaFileUrl nullable:true
     }
 
