@@ -6,6 +6,7 @@ class NameCommand implements Validateable {
     String title
     String description
     String author
+    String block
     Date postedDate = new Date()
     Date endDate
 

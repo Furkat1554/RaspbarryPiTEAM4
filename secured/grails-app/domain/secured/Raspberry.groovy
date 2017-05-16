@@ -1,4 +1,6 @@
 package secured
+import groovy.transform.ToString
+
 
 class Raspberry {
 
@@ -10,4 +12,11 @@ class Raspberry {
     static constraints = {
 
     }
+
+    @Override
+    String toString() {
+        return ("Block: "+block+" floor: "+floor)
+    }
+
+
 }

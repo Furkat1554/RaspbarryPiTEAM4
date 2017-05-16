@@ -10,7 +10,7 @@ class UploadToRaspberryService {
     GrailsApplication grailsApplication
     FTPClient ftpClient
 
-    String upload(String fileName, InputStream inputStream) {
+    String upload(String fileName, InputStream inputStream, String IP) {
         String status
         ftpClient.with {
             connect '192.168.21.254'

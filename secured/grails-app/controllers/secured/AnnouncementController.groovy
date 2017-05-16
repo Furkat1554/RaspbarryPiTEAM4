@@ -46,14 +46,14 @@ class AnnouncementController {
     // end::create[]
 
     // tag::uploadMediaFile[]
-    def uploadMediaFile(MediaFileCommand cmd) {
+    def uploadMediaFile(MediaFileCommand cmd, NameCommand nc) {
 
         if (cmd.hasErrors()) {
             respond(cmd, model: [announcement: cmd], view: 'editMediaFile')
             return
         }
 
-        def announcement = uploadAnnouncementMediaFileService.uploadMediaFile(cmd)
+        def announcement = uploadAnnouncementMediaFileService.uploadMediaFile(cmd, nc.block)
         if (announcement == null) {
             notFound()
             return

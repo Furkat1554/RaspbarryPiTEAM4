@@ -19,7 +19,7 @@ class UploadAnnouncementMediaFileService implements GrailsConfigurationAware {
         cdnRootUrl = co.getRequiredProperty('grails.guides.cdnRootUrl')
     }
 
-    Announcement uploadMediaFile(MediaFileCommand cmd) {
+    Announcement uploadMediaFile(MediaFileCommand cmd, String block) {
         String filename = cmd.mediaFile.originalFilename
         System.out.print(filename + "\n")
         def folderPath = "${cdnFolder}/announcement/${cmd.id}" as String
@@ -31,16 +31,20 @@ class UploadAnnouncementMediaFileService implements GrailsConfigurationAware {
         System.out.print(path + "\n")
         cmd.mediaFile.transferTo(new File(path))
 
+
         //share media file to raspberries
         File file = new File(path)
         InputStream inputStream = new BufferedInputStream(new FileInputStream(file))
+
+        def devices = getAllDevicesOfBlock(block)
         def ftpStatus = uploadToRaspberryService.upload(filename,inputStream)
 
         if(ftpStatus != null){
             System.out.print(ftpStatus)
         }
 
-        //add madiaFileUrl to database
+
+        //add mediaFileUrl to database
         String mediaFileUrl = "${cdnRootUrl}//announcement/${cmd.id}/${filename}"
         def announ = announcementGormService.updateMediaFileUrl(cmd.id, mediaFileUrl)
         if ( !announ || announ.hasErrors() ) {
@@ -48,5 +52,10 @@ class UploadAnnouncementMediaFileService implements GrailsConfigurationAware {
             f.delete()
         }
         announ
+    }
+
+    private String[] getAllDevicesOfBlock(String block){
+        def devices = Raspberry.executeQuery(block)
+        return devices
     }
 }
