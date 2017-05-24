@@ -1,16 +1,16 @@
 package secured
 import groovy.transform.ToString
 
-
 class Raspberry {
 
-    String IP;
-    String block;
-    int floor;
-    String department;
+    String ip
+    String block
+    int floor
+    String department
 
     static constraints = {
-
+        ip unique: true
+        block inList: ['A','B','C','D']
     }
 
     @Override

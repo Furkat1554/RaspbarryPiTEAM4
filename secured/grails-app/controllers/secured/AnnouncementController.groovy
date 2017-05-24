@@ -19,15 +19,27 @@ class AnnouncementController {
     // tag::index[]
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        def (l, total) = AnnouncementGormService.list(params)
+        def (l, total) = [Announcement.findAllByAuthor(springSecurityService.currentUser?.username),Announcement.count()]
         respond l, model:[announcementCount: total]
     }
     // end::index[]
 
+    // tag::events[]
+    def events(Integer max){
+        params.max = Math.min(max ?: 10, 100)
+        def (l,total) = AnnouncementGormService.list(params)
+        respond l, model:[announcementCount: total]
+    }
+    // end::events[]
+
     // tag::editMediaFile[]
     @Transactional(readOnly = true)
     def editMediaFile(Announcement announcement) {
-        respond announcement
+        if(announcement.mediaFileUrl == null){
+            respond announcement
+            return
+        }
+        respond(announcement, model: [announcement: announcement], view: 'show')
     }
     // end::editMediaFile[]
 
@@ -46,24 +58,16 @@ class AnnouncementController {
     // end::create[]
 
     // tag::uploadMediaFile[]
-    def uploadMediaFile(MediaFileCommand cmd, NameCommand nc) {
-
-        if (cmd.hasErrors()) {
-            respond(cmd, model: [announcement: cmd], view: 'editMediaFile')
-            return
-        }
-
-        def announcement = uploadAnnouncementMediaFileService.uploadMediaFile(cmd, nc.block)
+    def uploadMediaFile(MediaFileCommand cmd, Announcement announ) {
+        def announcement = uploadAnnouncementMediaFileService.uploadMediaFile(cmd, announ.block)
         if (announcement == null) {
             notFound()
             return
         }
-
         if (announcement.hasErrors()) {
             respond(announcement, model: [announcement: announcement], view: 'editMediaFile')
             return
         }
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.uploaded.message', args: [message(code: 'announcement.label', default: 'Annoucement'), announcement.id])
@@ -76,38 +80,30 @@ class AnnouncementController {
 
     // tag::save[]
     def save(NameCommand cmd) {
-
         if (isLoggedIn()) {
             cmd.author = springSecurityService.authentication.principal.username
         }
-
         if (cmd == null) {
             notFound()
             return
         }
-
         if (cmd.hasErrors()) {
             respond cmd.errors, model: [announcement: cmd], view: 'create'
             return
         }
-
         if (cmd.endDate < cmd.postedDate) {
             notAccepted()
             return
         }
-
         def announcement = AnnouncementGormService.save(cmd)
-
         if (announcement == null) {
             notFound()
             return
         }
-
         if (announcement.hasErrors()) {
             respond announcement.errors, model: [announcement: announcement], view: 'create'
             return
         }
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'announcement.label', default: 'Announcement'), announcement.id])

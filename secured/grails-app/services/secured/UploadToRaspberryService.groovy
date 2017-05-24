@@ -7,13 +7,12 @@ import org.apache.commons.net.ftp.FTPClient
 @Transactional
 class UploadToRaspberryService {
 
-    GrailsApplication grailsApplication
     FTPClient ftpClient
 
-    String upload(String fileName, InputStream inputStream, String IP) {
+    String upload(String fileName, InputStream inputStream, String IP){
         String status
         ftpClient.with {
-            connect '192.168.21.254'
+            connect IP
             login 'alibek', '1'
             enterLocalPassiveMode()
             setFileType(BINARY_FILE_TYPE)
@@ -24,4 +23,5 @@ class UploadToRaspberryService {
         }
         return status
     }
+
 }

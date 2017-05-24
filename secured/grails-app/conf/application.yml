@@ -1,7 +1,7 @@
 ---
 grails:
     guides:
-        cdnFolder: /home/furkat/Downloads/uploads
+        cdnFolder: /home/ali/Downloads/uploads
         cdnRootUrl: http://localhost:8888
 ---
 grails:
